@@ -11,8 +11,5 @@ notifications:
       - 'Build [#%{build_number}](%{build_url}) ([%{commit}](%{compare_url})) of %{repository}@%{branch} in PR [#%{pull_request_number}](%{pull_request_url}) by %{author} %{result} in %{duration}'
     branch_template:
       - 'Build [#%{build_number}](%{build_url}) ([%{commit}](%{compare_url})) of %{repository}@%{branch} by %{author} %{result} in %{duration}'
-    after_failure:
-      - curl -v -H User-Agent:TravisCI Bot -H Content-Type:application/json -d '{"content":"Build has failed!"}' https://discordapp.com/api/webhooks/457602854329253888/brS1pKV-zlcZ9OntbfEz5Br9ApTlJThI1B5UEtk98ObXeqQ1lX7gLy6T8urzDfruGY48
-    after_success:
-      - curl -v -H User-Agent:TravisCI Bot -H Content-Type:application/json -d '{"content":"Build successfully built!"}' https://discordapp.com/api/webhooks/457602854329253888/brS1pKV-zlcZ9OntbfEz5Br9ApTlJThI1B5UEtk98ObXeqQ1lX7gLy6T8urzDfruGY48
-      
+    on_success: always
+    on_failure: always
