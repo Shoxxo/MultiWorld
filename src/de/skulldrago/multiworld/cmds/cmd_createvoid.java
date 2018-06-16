@@ -25,197 +25,197 @@ import de.skulldrago.multiworld.main.Multiworld;
 import de.skulldrago.multiworld.mysql.MySQL;
 
 public class cmd_createvoid implements CommandExecutor {
-	Multiworld service = Multiworld.getPlugin();
-	String prefix = service.getPrefix();
-	File lang = new File("plugins/MultiWorld", "lang_de.yml");
-	YamlConfiguration cfg3 = YamlConfiguration.loadConfiguration(lang);
+    Multiworld service = Multiworld.getPlugin();
+    String prefix = service.getPrefix();
+    File lang = new File("plugins/MultiWorld", "lang_de.yml");
+    YamlConfiguration cfg3 = YamlConfiguration.loadConfiguration(lang);
 
-	MySQL sql = Multiworld.getPlugin().getMysql();
+    MySQL sql = Multiworld.getPlugin().getMysql();
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (sender instanceof Player) {
-			Player p = (Player) sender;
-			if (p.hasPermission("Multiworld.void")) {
-				if (args.length == 2) {
-					String WorldName = args[0];
-					String target = args[1];
-					Player targetp = Bukkit.getPlayer(target);
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (sender instanceof Player) {
+            Player p = (Player) sender;
+            if (p.hasPermission("Multiworld.void")) {
+                if (args.length == 2) {
+                    String WorldName = args[0];
+                    String target = args[1];
+                    Player targetp = Bukkit.getPlayer(target);
 
-					if (target != null) {
+                    if (target != null) {
 
-						Connection conn = sql.getConnection();
-						ResultSet rs = null;
-						PreparedStatement st = null;
-						ResultSet rs2 = null;
-						PreparedStatement st2 = null;
+                        Connection conn = sql.getConnection();
+                        ResultSet rs = null;
+                        PreparedStatement st = null;
+                        ResultSet rs2 = null;
+                        PreparedStatement st2 = null;
 
-						try {
-							st = conn.prepareStatement("SELECT worldname FROM worlds WHERE worldname = '" + WorldName + "'");
-							rs = st.executeQuery();
-							st2 = conn.prepareStatement("SELECT vnumbers, vmax FROM worldplayers WHERE name = '" + targetp.getName() + "'");
-							rs2 = st2.executeQuery();
+                        try {
+                            st = conn.prepareStatement("SELECT worldname FROM worlds WHERE worldname = '" + WorldName + "'");
+                            rs = st.executeQuery();
+                            st2 = conn.prepareStatement("SELECT vnumbers, vmax FROM worldplayers WHERE name = '" + targetp.getName() + "'");
+                            rs2 = st2.executeQuery();
 
-							if (rs2.next()) {
-								int voids = rs2.getInt("vnumbers");
-								int maxvoids = rs2.getInt("vmax");
+                            if (rs2.next()) {
+                                int voids = rs2.getInt("vnumbers");
+                                int maxvoids = rs2.getInt("vmax");
 
-								if (!(voids == maxvoids) || p.hasPermission("Multiworld.admin")) {
+                                if (!(voids == maxvoids) || p.hasPermission("Multiworld.admin")) {
 
-									if (!(rs.next())) {
+                                    if (!(rs.next())) {
 
-										File sourceFolder = new File("plugins/MultiWorld/backup/void");
-										if (sourceFolder.exists()) {
-											File targetFolder = new File(Bukkit.getWorldContainer(), WorldName);
-											copyWorld(sourceFolder, targetFolder);
-											Bukkit.getServer().createWorld(new WorldCreator(WorldName));
-										} else {
-											if (cfg3.contains("Commands.Createvoid.VoidSourceFail")) {
-												String msg = cfg3.getString("Commands.Createvoid.VoidSourceFail");
-												msg = msg.replaceAll("&", "§");
-												msg = msg.replaceAll("%prefix%", "" + prefix + "");
-												p.sendMessage(msg);
-											} else {
-												p.sendMessage(prefix + " §cVoidquelle fehlt");
-											}
-										}
+                                        File sourceFolder = new File("plugins/MultiWorld/backup/void");
+                                        if (sourceFolder.exists()) {
+                                            File targetFolder = new File(Bukkit.getWorldContainer(), WorldName);
+                                            copyWorld(sourceFolder, targetFolder);
+                                            Bukkit.getServer().createWorld(new WorldCreator(WorldName));
+                                        } else {
+                                            if (cfg3.contains("Commands.Createvoid.VoidSourceFail")) {
+                                                String msg = cfg3.getString("Commands.Createvoid.VoidSourceFail");
+                                                msg = msg.replaceAll("&", "§");
+                                                msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                                                p.sendMessage(msg);
+                                            } else {
+                                                p.sendMessage(prefix + " §cVoidquelle fehlt");
+                                            }
+                                        }
 
-										WorldCreator c = WorldCreator.name(WorldName).generator("EmptyWorldGenerator");
-										Bukkit.createWorld(c);
-									} else {
-										if (cfg3.contains("Commands.Createvoid.IsVoid")) {
-											String msg = cfg3.getString("Commands.Createvoid.IsVoid");
-											msg = msg.replaceAll("&", "§");
-											msg = msg.replaceAll("%prefix%", "" + prefix + "");
-											p.sendMessage(msg);
-										} else {
-											p.sendMessage(prefix + " §cVoid existiert schon");
-										}
-									}
+                                        WorldCreator c = WorldCreator.name(WorldName).generator("EmptyWorldGenerator");
+                                        Bukkit.createWorld(c);
+                                    } else {
+                                        if (cfg3.contains("Commands.Createvoid.IsVoid")) {
+                                            String msg = cfg3.getString("Commands.Createvoid.IsVoid");
+                                            msg = msg.replaceAll("&", "§");
+                                            msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                                            p.sendMessage(msg);
+                                        } else {
+                                            p.sendMessage(prefix + " §cVoid existiert schon");
+                                        }
+                                    }
 
-									String typ = "void";
-									Boolean locked = true;
-									Location loc = Bukkit.getWorld(WorldName).getSpawnLocation();
+                                    String typ = "void";
+                                    Boolean locked = true;
+                                    Location loc = Bukkit.getWorld(WorldName).getSpawnLocation();
 
-									Double x = loc.getX();
-									Double y = loc.getY();
-									Double z = loc.getZ();
+                                    Double x = loc.getX();
+                                    Double y = loc.getY();
+                                    Double z = loc.getZ();
 
-									Float yaw = loc.getYaw();
-									Float pitch = loc.getPitch();
+                                    Float yaw = loc.getYaw();
+                                    Float pitch = loc.getPitch();
 
-									String resident = "nobody";
-									voids = voids + 1;
+                                    String resident = "Nobody";
+                                    voids = voids + 1;
 
-									sql.queryUpdate("INSERT INTO worlds (worldname, owner, locked, type, spawnx, spawny, spawnz, spawnyaw, spawnpitch) VALUES ('" + WorldName + "', '" + targetp.getName() + "','" + locked + "', '" + typ + "', '" + x + "', '" + y + "', '" + z + "', '" + yaw + "', '" + pitch + "')");
-									sql.queryUpdate("INSERT INTO worldresidents (worldname, type, resident) VALUES ('" + WorldName + "', '" + typ + "', '" + resident + "')");
-									sql.queryUpdate("UPDATE worldplayers SET vnumbers = '" + voids + "' WHERE name = '" + targetp.getName() + "'");
-									targetp.teleport(Bukkit.getWorld(WorldName).getSpawnLocation());
+                                    sql.queryUpdate("INSERT INTO worlds (worldname, owner, locked, type, spawnx, spawny, spawnz, spawnyaw, spawnpitch) VALUES ('" + WorldName + "', '" + targetp.getName() + "','" + locked + "', '" + typ + "', '" + x + "', '" + y + "', '" + z + "', '" + yaw + "', '" + pitch + "')");
+                                    sql.queryUpdate("INSERT INTO worldresidents (worldname, type, resident) VALUES ('" + WorldName + "', '" + typ + "', '" + resident + "')");
+                                    sql.queryUpdate("UPDATE worldplayers SET vnumbers = '" + voids + "' WHERE name = '" + targetp.getName() + "'");
+                                    targetp.teleport(Bukkit.getWorld(WorldName).getSpawnLocation());
 
-									if (cfg3.contains("Commands.Createvoid.Finish")) {
-										String msg = cfg3.getString("Commands.Createvoid.Finish");
-										msg = msg.replaceAll("&", "§");
-										msg = msg.replaceAll("%prefix%", "" + prefix + "");
-										targetp.sendMessage(msg);
-									} else {
-										targetp.sendMessage(prefix + " §3Deine Void wurde angelegt");
-									}
+                                    if (cfg3.contains("Commands.Createvoid.Finish")) {
+                                        String msg = cfg3.getString("Commands.Createvoid.Finish");
+                                        msg = msg.replaceAll("&", "§");
+                                        msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                                        targetp.sendMessage(msg);
+                                    } else {
+                                        targetp.sendMessage(prefix + " §3Deine Void wurde angelegt");
+                                    }
 
-									if (cfg3.contains("Commands.Createvoid.Teleport")) {
-										String msg = cfg3.getString("Commands.Createvoid.Teleport");
-										msg = msg.replaceAll("&", "§");
-										msg = msg.replaceAll("%prefix%", "" + prefix + "");
-										targetp.sendMessage(msg);
-									} else {
-										targetp.sendMessage(prefix + " §cDu wurdest in deine neue Void teleportiert");
-									}
-								} else {
-									if (cfg3.contains("Commands.Createworld.MaxError")) {
-										String msg = cfg3.getString("Commands.Createworld.MaxError");
-										msg = msg.replaceAll("&", "§");
-										msg = msg.replaceAll("%prefix%", "" + prefix + "");
-										p.sendMessage(msg);
-									} else {
-										p.sendMessage(prefix + "§cError Die maximale Anzahl Welten erreicht");
-									}
-								}
-							}
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					} else {
-						if (cfg3.contains("System.NotOnline")) {
-							String msg = cfg3.getString("System.NotOnline");
-							msg = msg.replaceAll("&", "§");
-							msg = msg.replaceAll("%prefix%", "" + prefix + "");
-							p.sendMessage(msg);
+                                    if (cfg3.contains("Commands.Createvoid.Teleport")) {
+                                        String msg = cfg3.getString("Commands.Createvoid.Teleport");
+                                        msg = msg.replaceAll("&", "§");
+                                        msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                                        targetp.sendMessage(msg);
+                                    } else {
+                                        targetp.sendMessage(prefix + " §cDu wurdest in deine neue Void teleportiert");
+                                    }
+                                } else {
+                                    if (cfg3.contains("Commands.Createworld.MaxError")) {
+                                        String msg = cfg3.getString("Commands.Createworld.MaxError");
+                                        msg = msg.replaceAll("&", "§");
+                                        msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                                        p.sendMessage(msg);
+                                    } else {
+                                        p.sendMessage(prefix + "§cError Die maximale Anzahl Welten erreicht");
+                                    }
+                                }
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        if (cfg3.contains("System.NotOnline")) {
+                            String msg = cfg3.getString("System.NotOnline");
+                            msg = msg.replaceAll("&", "§");
+                            msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                            p.sendMessage(msg);
 
-						} else {
-							p.sendMessage(prefix + " §6Spieler ist nicht online.");
-						}
-					}
-				} else {
-					if (cfg3.contains("Commands.Createvoid.WrongSyntax")) {
-						String msg = cfg3.getString("Commands.Createvoid.WrongSyntax");
-						msg = msg.replaceAll("&", "§");
-						msg = msg.replaceAll("%prefix%", "" + prefix + "");
-						p.sendMessage(msg);
-					} else {
-						p.sendMessage(prefix + " §cFalsche Syntax. Bitte benutze /createvoid <Voidname> <Spieler>");
-					}
-				}
-			} else {
-				if (cfg3.contains("System.NoPermission")) {
-					String msg = cfg3.getString("System.NoPermission");
-					msg = msg.replaceAll("&", "§");
-					msg = msg.replaceAll("%prefix%", "" + prefix + "");
-					p.sendMessage(msg);
+                        } else {
+                            p.sendMessage(prefix + " §6Spieler ist nicht online.");
+                        }
+                    }
+                } else {
+                    if (cfg3.contains("Commands.Createvoid.WrongSyntax")) {
+                        String msg = cfg3.getString("Commands.Createvoid.WrongSyntax");
+                        msg = msg.replaceAll("&", "§");
+                        msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                        p.sendMessage(msg);
+                    } else {
+                        p.sendMessage(prefix + " §cFalsche Syntax. Bitte benutze /createvoid <Voidname> <Spieler>");
+                    }
+                }
+            } else {
+                if (cfg3.contains("System.NoPermission")) {
+                    String msg = cfg3.getString("System.NoPermission");
+                    msg = msg.replaceAll("&", "§");
+                    msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                    p.sendMessage(msg);
 
-				} else {
-					p.sendMessage(prefix + " §cDu hast nicht die Permissions um diesen Befehl zu benutzen.");
-				}
-			}
-		} else {
-			if (cfg3.contains("System.OnlyPlayers")) {
-				String msg = cfg3.getString("System.OnlyPlayers");
-				msg = msg.replaceAll("&", "§");
-				msg = msg.replaceAll("%prefix%", "" + prefix + "");
-				sender.sendMessage(msg);
-			} else {
-				sender.sendMessage(prefix + " §cNur Spieler duerfen diesen Befehl benutzen!");
-			}
-		}
-		return true;
-	}
+                } else {
+                    p.sendMessage(prefix + " §cDu hast nicht die Permissions um diesen Befehl zu benutzen.");
+                }
+            }
+        } else {
+            if (cfg3.contains("System.OnlyPlayers")) {
+                String msg = cfg3.getString("System.OnlyPlayers");
+                msg = msg.replaceAll("&", "§");
+                msg = msg.replaceAll("%prefix%", "" + prefix + "");
+                sender.sendMessage(msg);
+            } else {
+                sender.sendMessage(prefix + " §cNur Spieler duerfen diesen Befehl benutzen!");
+            }
+        }
+        return true;
+    }
 
-	public void copyWorld(File source, File target) {
-		try {
-			ArrayList<String> ignore = new ArrayList<String>(Arrays.asList("uid.dat", "session.dat", "session.lock"));
-			if (!ignore.contains(source.getName())) {
-				if (source.isDirectory()) {
-					if (!target.exists()) {
-						target.mkdirs();
-					}
-					String files[] = source.list();
-					for (String file : files) {
-						File srcFile = new File(source, file);
-						File destFile = new File(target, file);
-						copyWorld(srcFile, destFile);
-					}
-				} else {
-					InputStream in = new FileInputStream(source);
-					OutputStream out = new FileOutputStream(target);
-					byte[] buffer = new byte[2048];
-					int length;
-					while ((length = in.read(buffer)) > 0) {
-						out.write(buffer, 0, length);
-					}
-					in.close();
-					out.close();
-				}
-			}
-		} catch (IOException e) {
+    public void copyWorld(File source, File target) {
+        try {
+            ArrayList<String> ignore = new ArrayList<String>(Arrays.asList("uid.dat", "session.dat", "session.lock"));
+            if (!ignore.contains(source.getName())) {
+                if (source.isDirectory()) {
+                    if (!target.exists()) {
+                        target.mkdirs();
+                    }
+                    String files[] = source.list();
+                    for (String file : files) {
+                        File srcFile = new File(source, file);
+                        File destFile = new File(target, file);
+                        copyWorld(srcFile, destFile);
+                    }
+                } else {
+                    InputStream in = new FileInputStream(source);
+                    OutputStream out = new FileOutputStream(target);
+                    byte[] buffer = new byte[2048];
+                    int length;
+                    while ((length = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, length);
+                    }
+                    in.close();
+                    out.close();
+                }
+            }
+        } catch (IOException e) {
 
-		}
-	}
+        }
+    }
 }
