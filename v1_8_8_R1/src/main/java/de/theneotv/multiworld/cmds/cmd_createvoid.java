@@ -99,7 +99,7 @@ public class cmd_createvoid implements CommandExecutor {
                                     float yaw = loc.getYaw();
                                     float pitch = loc.getPitch();
 
-                                    String resident = "Nobody";
+                                    String resident = "Niemand";
                                     voids = voids + 1;
 
                                     sql.queryUpdate("INSERT INTO worlds (worldname, owner, locked, type, spawnx, spawny, spawnz, spawnyaw, spawnpitch) VALUES ('" + WorldName + "', '" + targetp.getName() + "','" + locked + "', '" + typ + "', '" + x + "', '" + y + "', '" + z + "', '" + yaw + "', '" + pitch + "')");

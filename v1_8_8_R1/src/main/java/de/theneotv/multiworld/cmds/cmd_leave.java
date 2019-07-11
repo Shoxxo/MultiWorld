@@ -38,11 +38,10 @@ public class cmd_leave implements CommandExecutor {
                 PreparedStatement st2 = null;
 
                 try {
-                    st = conn.prepareStatement(
-                            "SELECT worldname, owner, type FROM worlds WHERE worldname='" + w.getName() + "'");
+                    st = conn.prepareStatement("SELECT worldname, owner, type FROM worlds WHERE worldname='" + w.getName() + "'");
                     rs = st.executeQuery();
                     st2 = conn.prepareStatement(
-                            "SELECT anumbers, vnumbers FROM worldplayers WHERE name = '" + p.getName() + "'");
+                            "SELECT numbers, vnumbers FROM worldplayers WHERE name = '" + p.getName() + "'");
                     rs2 = st2.executeQuery();
 
                     if (rs2.next()) {
@@ -70,8 +69,7 @@ public class cmd_leave implements CommandExecutor {
                                     voids = voids - 1;
                                 }
                                 sql.queryUpdate("DELETE FROM worlds WHERE worldname = '" + w.getName() + "'");
-                                sql.queryUpdate("UPDATE worldplayers SET numbers = '" + welten + "', vnumbers = '"
-                                        + voids + "'");
+                                sql.queryUpdate("UPDATE worldplayers SET numbers = '" + welten + "', vnumbers = '" + voids + "'");
                                 File deletefolder = w.getWorldFolder();
                                 Bukkit.getServer().unloadWorld(w, true);
                                 deleteWorld(deletefolder);

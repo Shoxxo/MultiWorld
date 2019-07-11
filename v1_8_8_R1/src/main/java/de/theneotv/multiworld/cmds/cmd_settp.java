@@ -1,11 +1,7 @@
 package de.theneotv.multiworld.cmds;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import de.theneotv.multiworld.main.Multiworld;
+import de.theneotv.multiworld.mysql.MySQL;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -14,8 +10,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import de.theneotv.multiworld.main.Multiworld;
-import de.theneotv.multiworld.mysql.MySQL;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class cmd_settp implements CommandExecutor {
     Multiworld service = Multiworld.getPlugin();
