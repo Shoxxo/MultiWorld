@@ -1,79 +1,56 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.theneotv.multiworld</groupId>
-    <artifactId>multiworld</artifactId>
-    <version>parent</version>
-    <packaging>pom</packaging>
-    <name>Multiworld</name>
+  <groupId>de.theneotv.parent</groupId>
+  <artifactId>multoworld-parent</artifactId>
+  <version>parent</version>
+  <packaging>pom</packaging>
 
-    <url></url>
+  <name>Multiworld Parent</name>
+  <url>https://www.spigotmc.org/threads/plugin-open-source-cummunity-project.382908/</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
-    <repositories>
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
+  <repositories>
+    <repository>
+      <id>dmulloy2-repo</id>
+      <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
+    </repository>
+    <repository>
+      <id>spigot-repo</id>
+      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+     </repository>
+     <repository>
+       <id>techcable-repo</id>
+       <url>https://repo.techcable.net/content/groups/public/</url>
+     </repository>
+  </repositories>
 
-    <modules>
-        <module>v1_8_8_R1</module>
-    </modules>
+  <modules>
+    <module>v1_8_R1</module>
+    <module>v1_9_R1</module>
+    <module>v1_9_R2</module>
+    <module>v1_10_R1</module>
+    <module>v1_11_R1</module>
+    <module>v1_12_R1</module>
+    <module>v1_13_R1</module>
+    <module>v1_13_R2</module>
+    <module>v1_14_R1</module>
+	<module>v1_14_R2</module>
+    <module>Plugin</module>
+  </modules>
 
-    <build>
-        <directory>../target</directory>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>.</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>LICENSE</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
+  <build>
+    <defaultGoal>clean install</defaultGoal>
+  </build>
 
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <scm>
+    <connection>scm:git:git://github.com/TheNeoTV/MultiWorld.git</connection>
+    <developerConnection>scm:git:git@github.com:TheNeoTV/MultiWorld.git</developerConnection>
+    <url>https://github.com/TheNeoTV/MultiWorld</url>
+  </scm>
 
-    <scm>
-        <connection>scm:git:git://github.com/TheNeoTV/MultiWorld.git</connection>
-        <developerConnection>scm:git:git@github.com:TheNeoTV/MultiWorld.git</developerConnection>
-        <url>https://github.com/TheNeoTV/MultiWorld</url>
-    </scm>
 </project>
