@@ -49,7 +49,7 @@ public class cmd_tpaccept implements CommandExecutor {
                         String player = rs.getString("requestname");
 
                         if (player != null) {
-                            Player target = Bukkit.getPlayer(player);
+                            Player target = Bukkit.getServer().getPlayer(player);
 
                             if (target != null) {
                                 World w = p.getWorld();

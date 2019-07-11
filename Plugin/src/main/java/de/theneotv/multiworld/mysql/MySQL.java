@@ -6,13 +6,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.sql.*;
 
 public class MySQL {
 
-    private String host;
-    private String user;
+    private String hostname;
+    private int port;
+    private String username;
     private String password;
     private String database;
     private Connection conn;
@@ -23,8 +23,9 @@ public class MySQL {
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         String db = "database.";
-        cfg.addDefault(db + "host", "localhost");
-        cfg.addDefault(db + "user", "user");
+        cfg.addDefault(db + "hostname", "localhost");
+        cfg.addDefault(db + "port", 3306);
+        cfg.addDefault(db + "username", "username");
         cfg.addDefault(db + "password", "password");
         cfg.addDefault(db + "database", "database");
         cfg.options().copyDefaults(true);
@@ -34,8 +35,9 @@ public class MySQL {
             e.printStackTrace();
         }
 
-        this.host = cfg.getString(db + "host");
-        this.user = cfg.getString(db + "user");
+        this.hostname = cfg.getString(db + "hostname");
+        this.port = cfg.getInt(db + "port");
+        this.username = cfg.getString(db + "username");
         this.password = cfg.getString(db + "password");
         this.database = cfg.getString(db + "database");
 
@@ -45,19 +47,15 @@ public class MySQL {
     public boolean openConnection() throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String connectionCommand = "jdbc:mysql://"+host+"/"+database+"?user="+user+"&password="+password;
+            String connectionCommand = "jdbc:mysql://" + hostname + "/" + port + "/" + database + "?user=" + username + "&password=" + password;
             Connection conn = DriverManager.getConnection(connectionCommand);
-        /*Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database, this.user, this.password);
 
-        */
             this.conn = conn;
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-
     }
 
     public Connection getConnection() {
@@ -68,6 +66,7 @@ public class MySQL {
         try {
             return this.conn != null || this.conn.isValid(1);
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -79,7 +78,7 @@ public class MySQL {
             st = conn.prepareStatement(query);
             st.executeUpdate();
         } catch (SQLException e) {
-            Bukkit.getConsoleSender().sendMessage("§c[MySQL] Kann update nicht senden '" + query + "'.");
+            Bukkit.getConsoleSender().sendMessage("§c[MySQL] Folgendes Update konnte nicht an die Datenbank gesendet werden '" + query + "'.");
         } finally {
             this.CloseRessources(null, st);
         }
@@ -90,12 +89,14 @@ public class MySQL {
             try {
                 rs.close();
             } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         if (st != null) {
             try {
                 st.close();
             } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

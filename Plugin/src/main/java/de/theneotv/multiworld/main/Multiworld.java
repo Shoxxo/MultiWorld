@@ -26,12 +26,20 @@ public class Multiworld extends JavaPlugin {
     public static Multiworld m;
 
     private static Multiworld plugin;
+    private MySQL sql;
 
     public static Multiworld getPlugin() {
         return plugin;
     }
 
-    private MySQL sql;
+    public static Multiworld getInstance() {
+        return m;
+    }
+
+    public static String concat(String[] s, int start, int end) {
+        String[] args = Arrays.copyOfRange(s, start, end);
+        return StringUtils.join(args, " ");
+    }
 
     @Override
     public void onEnable() {
@@ -46,16 +54,16 @@ public class Multiworld extends JavaPlugin {
 
         try {
             this.sql = new MySQL();
-            sql.queryUpdate("CREATE TABLE IF NOT EXISTS worlds (worldname VARCHAR(25), owner VARCHAR(25), locked VARCHAR(25), type VARCHAR(25), spawnx DOUBLE, spawny DOUBLE, spawnz DOUBLE, spawnyaw FLOAT, spawnpitch FLOAT)");
+            sql.queryUpdate("CREATE TABLE IF NOT EXISTS worlds (worldname VARCHAR(25), owner VARCHAR(64), locked VARCHAR(25), type VARCHAR(25), spawnx DOUBLE, spawny DOUBLE, spawnz DOUBLE, spawnyaw FLOAT, spawnpitch FLOAT)");
             sql.queryUpdate("CREATE TABLE IF NOT EXISTS worldresidents (worldname VARCHAR(25), type VARCHAR(25), resident VARCHAR(25))");
-            sql.queryUpdate("CREATE TABLE IF NOT EXISTS tprequests (name VARCHAR(25), requestname VARCHAR(25))");
-            sql.queryUpdate("CREATE TABLE IF NOT EXISTS tphererequests (requestname VARCHAR(25), name VARCHAR(25))");
-            sql.queryUpdate("CREATE TABLE IF NOT EXISTS worldplayers (name VARCHAR(25), max INT(5), numbers INT(5), vmax INT(5), vnumbers INT(5))");
+            sql.queryUpdate("CREATE TABLE IF NOT EXISTS tprequests (name VARCHAR(64), requestname VARCHAR(64))");
+            sql.queryUpdate("CREATE TABLE IF NOT EXISTS tphererequests (requestname VARCHAR(64), name VARCHAR(64))");
+            sql.queryUpdate("CREATE TABLE IF NOT EXISTS worldplayers (name VARCHAR(64), max INT(5), numbers INT(5), vmax INT(5), vnumbers INT(5))");
 
-            Bukkit.getConsoleSender().sendMessage(this.getPrefix() + " §aMySQL Verbindung hergestellt!");
+            Bukkit.getConsoleSender().sendMessage(this.getPrefix() + " §a[MySQL] Verbindung zur Datenbank erfolgreich hergestellt!");
             registerCommands();
         } catch (Exception e) {
-            Bukkit.getConsoleSender().sendMessage(this.getPrefix() + " §cMySQL Verbindung fehlgeschlagen!");
+            Bukkit.getConsoleSender().sendMessage(this.getPrefix() + " §c[MySQL] Es konnte keine Verbundung zur Datenbank hergestellt werden!");
         }
 
         checkFiles();
@@ -65,21 +73,17 @@ public class Multiworld extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new WorldListener(), this);
         lockworlds();
 
-        Bukkit.getConsoleSender().sendMessage(this.getPrefix() + " §aMultiworld wurde erfolgreich geladen!");
+        Bukkit.getConsoleSender().sendMessage(this.getPrefix() + " §a[MultiWorld] Plugin wurde erfolgreich aktiviert!");
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getConsoleSender().sendMessage(this.getPrefix() + " §cMultiworld wurde deaktiviert!");
+        Bukkit.getConsoleSender().sendMessage(this.getPrefix() + " §c[MultiWorld] Plugin wurde deaktiviert!");
 
     }
 
     public MySQL getMysql() {
         return this.sql;
-    }
-
-    public static Multiworld getInstance() {
-        return m;
     }
 
     public void checkFiles() {
@@ -103,7 +107,7 @@ public class Multiworld extends JavaPlugin {
         getCommand("worldinfo").setExecutor(new cmd_worldinfo());
         getCommand("settpworld").setExecutor(new cmd_settp());
         getCommand("createvoid").setExecutor(new cmd_createvoid());
-        getCommand("wlist").setExecutor(new cmd_list());
+        getCommand("worldlist").setExecutor(new cmd_list());
         getCommand("load").setExecutor(new cmd_load());
         getCommand("unload").setExecutor(new cmd_unload());
         getCommand("createserverworld").setExecutor(new cmd_createserver());
@@ -135,11 +139,6 @@ public class Multiworld extends JavaPlugin {
         }
     }
 
-    public static String concat(String[] s, int start, int end) {
-        String[] args = Arrays.copyOfRange(s, start, end);
-        return StringUtils.join(args, " ");
-    }
-
     public void loadConfig() {
         getConfig().options().copyDefaults(true);
         saveConfig();
@@ -152,7 +151,7 @@ public class Multiworld extends JavaPlugin {
             prefix = prefix.replaceAll("&", "§");
             return prefix;
         } else {
-            prefix = "§8[§4Multiworld§8] §r";
+            prefix = "§8[§4MultiWorld§8] §r";
             return prefix;
         }
     }

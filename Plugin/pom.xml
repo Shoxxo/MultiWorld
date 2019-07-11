@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -6,16 +6,113 @@
     <artifactId>multiworld</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-	
+
     <name>Multiworld</name>
     <url>https://www.spigotmc.org/threads/plugin-open-source-cummunity-project.382908/</url>
 
     <parent>
-        <groupId>de.theneotv.multiworld</groupId>
-        <artifactId>multiworld</artifactId>
+        <groupId>de.theneotv.parent</groupId>
+        <artifactId>multiworld-parent</artifactId>
         <version>parent</version>
     </parent>
 
+    <dependencies>
+        <dependency>
+          <groupId>org.spigotmc</groupId>
+          <artifactId>spigot-api</artifactId>
+          <version>1.14.3-R0.1-SNAPSHOT</version>
+          <scope>provided</scope>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>net.openhft</groupId>
+          <artifactId>zero-allocation-hashing</artifactId>
+          <version>0.8</version>
+          <type>jar</type>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>de.theneotv</groupId>
+          <artifactId>multiworld-v1_8_R1</artifactId>
+          <version>v1_8_R1</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>de.theneotv</groupId>
+          <artifactId>multiworld-v1_9_R1</artifactId>
+          <version>v1_9_R1</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>de.theneotv</groupId>
+          <artifactId>multiworld-v1_9_R2</artifactId>
+          <version>v1_9_R2</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>de.theneotv</groupId>
+          <artifactId>multiworld-v1_10_R1</artifactId>
+          <version>v1_10_R1</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>de.theneotv</groupId>
+          <artifactId>multiworld-v1_11_R1</artifactId>
+          <version>v1_11_R1</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>de.theneotv</groupId>
+          <artifactId>multiworld-v1_12_R1</artifactId>
+          <version>v1_12_R1</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>de.theneotv</groupId>
+          <artifactId>multiworld-v1_13_R1</artifactId>
+          <version>v1_13_R1</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>de.theneotv</groupId>
+          <artifactId>multiworld-v1_13_R2</artifactId>
+          <version>v1_13_R2</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <optional>true</optional>
+        </dependency>
+      <dependency>
+        <groupId>de.theneotv</groupId>
+        <artifactId>multiworld-v1_14_R1</artifactId>
+        <version>v1_14_R1</version>
+        <type>jar</type>
+        <scope>compile</scope>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>de.theneotv</groupId>
+        <artifactId>multiworld-v1_14_R2</artifactId>
+        <version>v1_14_R2</version>
+        <type>jar</type>
+        <scope>compile</scope>
+        <optional>true</optional>
+      </dependency>
+    </dependencies>
+	
     <build>
         <directory>../target</directory>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -60,33 +157,7 @@
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
 
-    <dependencies>
-        <!--Bukkit API -->
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--Spigot API and NMS -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.1</version>
-        </dependency>
-    </dependencies>
 </project>
