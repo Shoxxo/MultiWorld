@@ -1,6 +1,8 @@
 # MultiWorld
-Minecraft 1.7.10 Multiworld System
+Minecraft 1.8.x Multiworld System
+
+Commands:
+- Later will you have here a command list!
 
 Dependencies:
-- paperspigot-1.7.10-R0.1-SNAPSHOT.jar
 - EmptyWorldGenerator
