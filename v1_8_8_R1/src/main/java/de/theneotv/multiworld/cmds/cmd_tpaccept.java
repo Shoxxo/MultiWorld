@@ -142,7 +142,7 @@ public class cmd_tpaccept implements CommandExecutor {
                                     msg = msg.replaceAll("%prefix%", "" + prefix + "");
                                     p.sendMessage(msg);
                                 } else {
-                                    p.sendMessage(prefix + " §cSpieler ist nicht online.");
+                                    p.sendMessage(prefix + "§cSpieler ist nicht online.");
                                 }
                             }
                         } else {
@@ -152,7 +152,7 @@ public class cmd_tpaccept implements CommandExecutor {
                                 msg = msg.replaceAll("%prefix%", "" + prefix + "");
                                 p.sendMessage(msg);
                             } else {
-                                p.sendMessage(prefix + " §cDu hast keine Teleportanfragen.");
+                                p.sendMessage(prefix + "§cDu hast keine Teleportanfragen.");
                             }
                         }
                     }
@@ -167,7 +167,7 @@ public class cmd_tpaccept implements CommandExecutor {
                     p.sendMessage(msg);
 
                 } else {
-                    p.sendMessage(prefix + " §cDu hast nicht die Permissions um diesen Befehl zu benutzen.");
+                    p.sendMessage(prefix + "§cDu hast nicht die Permissions um diesen Befehl zu benutzen.");
                 }
             }
         } else {
@@ -178,7 +178,7 @@ public class cmd_tpaccept implements CommandExecutor {
                 sender.sendMessage(msg);
 
             } else {
-                sender.sendMessage(prefix + " §cNur Spieler duerfen diesen Befehl benutzen!");
+                sender.sendMessage(prefix + "§cNur Spieler duerfen diesen Befehl benutzen!");
             }
         }
         return true;

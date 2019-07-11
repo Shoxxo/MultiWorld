@@ -56,10 +56,10 @@ public class cmd_worldinfo implements CommandExecutor {
                                 residents.add(rs2.getString("resident"));
                             }
                         }
-                        p.sendMessage("?3" + w.getName() + ": " + "\n");
-                        p.sendMessage("?3----------------------" + "\n");
-                        p.sendMessage("?3Besitzer: " + owner + "\n");
-                        p.sendMessage("?3Bewohner: " + residents);
+                        p.sendMessage("§3" + w.getName() + ": " + "\n");
+                        p.sendMessage("§3----------------------" + "\n");
+                        p.sendMessage("§?3Besitzer: " + owner + "\n");
+                        p.sendMessage("§3Bewohner: " + residents);
 
                     }
                 } catch (SQLException e) {
@@ -69,12 +69,12 @@ public class cmd_worldinfo implements CommandExecutor {
             } else {
                 if (cfg2.contains("System.OnlyPlayers")) {
                     String msg = cfg2.getString("System.OnlyPlayers");
-                    msg = msg.replaceAll("&", "?");
+                    msg = msg.replaceAll("&", "§");
                     msg = msg.replaceAll("%prefix%", "" + prefix + "");
                     sender.sendMessage(msg);
 
                 } else {
-                    sender.sendMessage(prefix + " ?cNur Spieler duerfen diesen Befehl benutzen!");
+                    sender.sendMessage(prefix + " §cNur Spieler duerfen diesen Befehl benutzen!");
                 }
             }
 
@@ -116,11 +116,11 @@ public class cmd_worldinfo implements CommandExecutor {
                         } else {
                             if (cfg2.contains("Commands.Tpworld.Error")) {
                                 String msg = cfg2.getString("Commands.Tpworld.Error");
-                                msg = msg.replaceAll("&", "?");
+                                msg = msg.replaceAll("&", "§");
                                 msg = msg.replaceAll("%prefix%", "" + prefix + "");
                                 p.sendMessage(msg);
                             } else {
-                                p.sendMessage(prefix + " ?cFehler: Welt existiert nicht");
+                                p.sendMessage(prefix + " §cFehler: Welt existiert nicht");
                             }
                         }
                     } catch (SQLException e) {
@@ -129,33 +129,33 @@ public class cmd_worldinfo implements CommandExecutor {
                 } else {
                     if (cfg2.contains("Commands.Tpworld.Error")) {
                         String msg = cfg2.getString("Commands.Tpworld.Error");
-                        msg = msg.replaceAll("&", "?");
+                        msg = msg.replaceAll("&", "§");
                         msg = msg.replaceAll("%prefix%", "" + prefix + "");
                         p.sendMessage(msg);
                     } else {
-                        p.sendMessage(prefix + " ?cFehler: Welt existiert nicht");
+                        p.sendMessage(prefix + " §cFehler: Welt existiert nicht");
                     }
                 }
             } else {
                 if (cfg2.contains("System.OnlyPlayers")) {
                     String msg = cfg2.getString("System.OnlyPlayers");
-                    msg = msg.replaceAll("&", "?");
+                    msg = msg.replaceAll("&", "§");
                     msg = msg.replaceAll("%prefix%", "" + prefix + "");
                     sender.sendMessage(msg);
 
                 } else {
-                    sender.sendMessage(prefix + " ?cNur Spieler duerfen diesen Befehl benutzen!");
+                    sender.sendMessage(prefix + " §cNur Spieler duerfen diesen Befehl benutzen!");
                 }
             }
 
         } else {
             if (cfg2.contains("Commands.Worldinfo.WrongSyntax")) {
                 String msg = cfg2.getString("Commands.Worldinfo.WrongSyntax");
-                msg = msg.replaceAll("&", "?");
+                msg = msg.replaceAll("&", "§");
                 msg = msg.replaceAll("%prefix%", "" + prefix + "");
                 sender.sendMessage(msg);
             } else {
-                sender.sendMessage(prefix + " ?cFalsche Syntax. Benutze bitte /worldinfo oder /worldinfo <Weltname>");
+                sender.sendMessage(prefix + " §cFalsche Syntax. Benutze bitte /worldinfo oder /worldinfo <Weltname>");
             }
         }
         return true;

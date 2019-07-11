@@ -137,7 +137,7 @@ public class FileCheckWorld {
                     float spawnPitch = loc.getPitch();
 
                     sql.queryUpdate(
-                            "INSERT INTO worlds (worlds, owner, locked, type, spawnx, spawny, spawnz, spawnyaw, spawnpitch) VALUES ('"
+                            "INSERT INTO worlds (worldname, owner, locked, type, spawnx, spawny, spawnz, spawnyaw, spawnpitch) VALUES ('"
                                     + name + "', '" + owner + "', '" + locked + "', '" + type + "', '" + spawnX + "', '"
                                     + spawnY + "', '" + spawnZ + "', '" + spawnYaw + "', '" + spawnPitch + "')");
                 } else {
