@@ -3,10 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.theneotv</groupId>
-    <artifactId>multiworld-v1_8_8_R1</artifactId>
-    <version>v1_8_8_R1</version>
+    <artifactId>multiworld</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
+	
     <name>Multiworld</name>
+    <url>https://www.spigotmc.org/threads/plugin-open-source-cummunity-project.382908/</url>
 
     <parent>
         <groupId>de.theneotv.multiworld</groupId>
