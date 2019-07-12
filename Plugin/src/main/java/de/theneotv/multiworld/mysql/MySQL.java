@@ -47,7 +47,7 @@ public class MySQL {
     public boolean openConnection() throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String connectionCommand = "jdbc:mysql://" + hostname + "/" + port + "/" + database + "?user=" + username + "&password=" + password;
+            String connectionCommand = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?user=" + username + "&password=" + password;
             Connection conn = DriverManager.getConnection(connectionCommand);
 
             this.conn = conn;
@@ -66,7 +66,6 @@ public class MySQL {
         try {
             return this.conn != null || this.conn.isValid(1);
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -89,14 +88,12 @@ public class MySQL {
             try {
                 rs.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         if (st != null) {
             try {
                 st.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
     }

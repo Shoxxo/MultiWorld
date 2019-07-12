@@ -56,11 +56,12 @@ public class cmd_worldinfo implements CommandExecutor {
                                 residents.add(rs2.getString("resident"));
                             }
                         }
-                        p.sendMessage("§3" + w.getName() + ": " + "\n");
-                        p.sendMessage("§3----------------------" + "\n");
-                        p.sendMessage("§3Besitzer: " + owner + "\n");
-                        p.sendMessage("§3Bewohner: " + residents);
-
+                        p.sendMessage("§3=============================" + "\n");
+                        p.sendMessage("§3= Name: " + w.getName() +        "\n");
+                        p.sendMessage("§3=============================" + "\n");
+                        p.sendMessage("§3= Besitzer: " + owner +          "\n");
+                        p.sendMessage("§3= Bewohner: " + residents);
+                        p.sendMessage("§3=============================" + "\n");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

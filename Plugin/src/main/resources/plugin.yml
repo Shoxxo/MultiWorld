@@ -1,36 +1,99 @@
 name: ${project.name}
-main: de.theneotv.multiworld.Multiworld
+main: de.theneotv.multiworld.main.Multiworld
 version: ${project.version}
 author: TheNeoTV
-authors: [TheNeoTV]
 softdepend: [EmptyWorldGenerator]
 load: startup
 api-version: 1.14
 description: 'Multiworld plugin to create new worlds for each player or situation!'
 commands:
-  description: Manage Multiworld.
-  usage: |
-    /<command> addresident <player> - Bewohner in deine Welt eintragen
-    /<command> createworld <worldname> <normal|nether|end> <normal|flat|amplified|bigbiomes> - Welt erstellen
-    /<command> createvoidworld <woidworldname> <player> - Voidworld für einen Spieler erstellen
-    /<command> createserverworld <worldname> <normal|nether|end> <normal|flat|amplified|bigbiomes> - Server Welt erstellen
-    /<command> deleteworld <worldname> - Löscht die angegebene Welt
-    /<command> delresident <player> - Bewohner von deiner Welt entfernen
-    /<command> leaveworld - Deine Welt verlassen und in den Serverbesitz geben
-    /<command> worldlist - Liste aller Welten aufrufen
-    /<command> load <worldname> - Lädt die angegebene Welt
-    /<command> unload <worldname> - Entläd die angebenene Welt
-    /<command> lock - Sperrt deine Welt für andere Spieler
-    /<command> setowner <player> - Setzt den Eigentümer der Welt fest
-    /<command> settpworld - Setzt den Spawnpunkt in der eigenen Welt fest
-    /<command> tpworld - Teleportiert dich in deine eigene Welt
-    /<command> tpworld <worldname> - Teleportiert dich in die angegebene Welt
-    /<command> unlock - Entsperrt deine Welt für andere Spieler
-    /<command> worldinfo <worldname> - Listete Informationen über die angegebene Welt auf
-    /<command> tpa <player> - Teleportanfrage an den angegebenen Spieler senden
-    /<command> tpaccept - Teleportanfrage annehmen
-    /<command> tpadeny - Teleportanfrage ablehnen
-    /<command> tpahere <player> - Teleportanfrage an den angegebenen Spieler, ob er sich zu deiner Position teleportieren möchte
-    /<command> tpahereaccept - Teleportanfrage annehmen
-    /<command> tpaheredeny - Teleportanfrage ablehnen
-    /<command> import <Weltname> - Eine bereits vorhandene Welten importieren
+  addresident:
+    description: Spieler in deine Welt eintragen
+    usage: /addresident <player>
+    permission: Multiworld.residents
+  createworld:
+    description: Welt erstellen
+    usage: /createworld <worldname> <normal|nether|end> <normal|flat|amplified|bigbiomes>
+    permission: Multiworld.create, Multiworld.admin, Multiworld.g1-3, Multiworld.v1-3
+  createvoid:
+    description: Voidworld für einen Spieler erstellen
+    usage: /createvoid <voidworldname> <player>
+    permission: Multiworld.void
+  createserverworld:
+    description: Allgemeine Server Welt erstellen
+    usage: /createserverworld <worldname> <normal|nether|end> <normal|flat|amplified|bigbiomes>
+    permission: Multiworld.all
+  deleteworld:
+    description: Welt entfernen
+    usage: /deleteworld <worldname>
+    permission: Multiworld.delete
+  delresident:
+    description: Spieler aus deiner Welt entfernen
+    usage: /delresident <player>
+    permission: Multiworld.residents
+  leaveworld:
+    description: Deine Welt auf ewig verlassen
+    usage: /leaveworld
+    permission: Multiworld.leave
+  worldlist:
+    description: Liste aller Welten aufrufen
+    usage: /worldlist
+  load:
+    description: Eine Welt laden
+    usage: /load <worldname>
+    permission: Multiworld.load
+  unload:
+    description: Eine Welt entladen
+    usage: /unload <worldname>
+    permission: Multiworld.load
+  lock:
+    description: Deine Welt sperren
+    usage: /lock
+    permission: Multiwold.lock
+  setowner:
+    description: Owner der Welt festlegen
+    usage: /setowner <player>
+    permission: Multiworld.setowner
+  settpworld:
+    description: Spawnpunkt in der eigenen Welt setzten
+    usage: /settpworld
+    permission: Multiworld.settp
+  tpworld:
+    description: Zu der eigenen Welt teleportieren
+    usage: /tpworld oder /tpworld <worldname>
+    permission: Multiworld.tp, Multiworld.admin
+  unlock:
+    description: Welt entsperren
+    usage: /unlock
+    permission: Multiworld.lock
+  worldinfo:
+    description: Weltinfo
+    usage: /worldinfo <worldname>
+  tpa:
+    description: Teleportanfrage an Spieler senden
+    usage: /tpa <player>
+    permission: Multiworld.tpa
+  tpaccept:
+    description: Teleportanfrage akzeptieren
+    usage: /tpaccept
+    permission: Multiworld.tpa
+  tpadeny:
+    description: Teleportanfrage verweigern
+    usage: /tpadeny
+    permission: Multiworld.tpa
+  tpahere:
+    description: Anfrage Spieler zu einem hin zu teleportieren
+    usage: /tpahere <player>
+    permission: Multiworld.tpahere
+  tpahereaccept:
+    description: Anfrage akzeptieren
+    usage: /tpahereaccept
+    permission: Multiworld.tpahere
+  tpaheredeny:
+    description: Anfrage verweigern
+    usage: /tpaheredeny
+    permission: Multiworld.tpahere
+  import:
+    description: Bereits vorhandene Welten importieren
+    usage: /import <worldname>
+    permission: Multiworld.import

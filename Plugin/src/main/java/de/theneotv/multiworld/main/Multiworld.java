@@ -196,7 +196,7 @@ public class Multiworld extends JavaPlugin {
         if (!e.getPlayer().hasPlayedBefore()) {
             PlayerInventory inv = e.getPlayer().getInventory();
             for (int i = 0; i < 9; i++) {
-                inv.setItem(i, new ItemStack(Material.SIGN));
+                inv.setItem(i, new ItemStack(Material.LEGACY_WORKBENCH));
             }
         }
     }
@@ -204,7 +204,7 @@ public class Multiworld extends JavaPlugin {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         if (e.hasItem()) {
-            if (e.getItem().getType() == Material.SIGN) {
+            if (e.getItem().getType() == Material.LEGACY_WORKBENCH) {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "multiworld create " + e.getPlayer().getUniqueId() + " normal normal");
             }
         }

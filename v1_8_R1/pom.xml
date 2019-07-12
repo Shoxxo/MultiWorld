@@ -1,11 +1,11 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>tv.theneotv</groupId>
+    <groupId>de.theneotv</groupId>
     <artifactId>multiworld-v1_8_R1</artifactId>
     <version>v1_8_R1</version>
     <packaging>jar</packaging>
-    <name>MultiWorld v1_8_R1</name>
+    <name>Multiworld v1_8_R1</name>
 
     <parent>
         <groupId>de.theneotv.parent</groupId>

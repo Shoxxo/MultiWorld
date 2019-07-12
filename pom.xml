@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.theneotv.parent</groupId>
-    <artifactId>multoworld-parent</artifactId>
+    <artifactId>multiworld-parent</artifactId>
     <version>parent</version>
     <packaging>pom</packaging>
 
@@ -15,10 +15,6 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>dmulloy2-repo</id>
-            <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
-        </repository>
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
@@ -38,8 +34,7 @@
         <module>v1_12_R1</module>
         <module>v1_13_R1</module>
         <module>v1_13_R2</module>
-        <module>v1_14_R1</module>
-        <module>v1_14_R2</module>
+		<module>v1_14_R1</module>
         <module>Plugin</module>
     </modules>
 
@@ -48,8 +43,8 @@
     </build>
 
     <scm>
-        <connection>scm:git:git://github.com/TheNeoTV/MultiWorld.git</connection>
-        <developerConnection>scm:git:git@github.com:TheNeoTV/MultiWorld.git</developerConnection>
+        <connection>scm:git://github.com/TheNeoTV/MultiWorld.git</connection>
+        <developerConnection>scm:git@github.com:TheNeoTV/MultiWorld.git</developerConnection>
         <url>https://github.com/TheNeoTV/MultiWorld</url>
     </scm>
 
